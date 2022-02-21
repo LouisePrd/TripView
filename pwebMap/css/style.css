@@ -13,11 +13,11 @@ p{
 }
 
 body{
-    background: url(../img/fond.jpg) no-repeat center;
+    background: url(../img/fond2.jpg) no-repeat center;
     background-size: cover;
 }
 
 .logo{
-	max-width: 15%;
+	max-width: 12%;
 	height: auto;
 }
