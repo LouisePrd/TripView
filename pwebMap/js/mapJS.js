@@ -5,36 +5,40 @@ window.onload = function () {
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'PING'}).addTo(map);
 	
 
-	//chargement des icones
+	//chargement des icones (à factoriser)
 	var startIcon = L.icon({
     iconUrl: './img/début.png',
     iconSize:     [30, 50], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor	
+    iconAnchor:   [4, 50], // point of the icon which will correspond to marker's location	
 });
 	var endIcon = L.icon({
     iconUrl: './img/fin.png',
     iconSize:     [30, 50], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconAnchor:   [5, 50], // point of the icon which will correspond to marker's location
+});
+var activityIcon = L.icon({
+    iconUrl: './img/activité.png',
+    iconSize:     [30, 40], // size of the icon
+    iconAnchor:   [5, 45], // point of the icon which will correspond to marker's location
 });
 
+map.on('click', onMapClick);
 
-//problème à régler : quand on choisit dans la liste déroulante, pas de changement d'icone
-//car on prend la valeur qu'on a dans le lancement de la page en windows.onload
-//mais si on met map.on("click", function(e) hors du windows.onload = map pas reconnue
-$("#valeur").on('change', function()  {
-	alert(document.getElementById("valeur").value);
-	map.on("click", function(e){
-		if (document.getElementById("valeur").value = "startIcon"){
+function onMapClick(e) {
+	var nom = document.getElementById("valeur").value;
+	alert(nom);
+		if (nom == "startIcon"){
 			var mp = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: startIcon}).addTo(map);
 		}
-		else{
+		else if (nom == 'endIcon') {
 			var mp = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: endIcon}).addTo(map);
 		}
+		else{
+			var mp = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: activityIcon}).addTo(map);
+		}
 		alert(mp.getLatLng());
-	});
- });
-
-
+}
 };
+
+
+
