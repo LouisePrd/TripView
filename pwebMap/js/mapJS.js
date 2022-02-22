@@ -38,6 +38,7 @@ function onMapClick(e) {
 		}
 		alert(mp.getLatLng());
 }
+
 };
 
 
