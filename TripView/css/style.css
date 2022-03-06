@@ -1,10 +1,11 @@
 #map { 
-    width: 60%;
-    height: 67%;
+    width: 55%;
+    height: 60%;
+    display: flex;
 }
 
 p{
-    font-size: 1.4em;
+    font-size: 1.3em;
     justify-content: center;
     text-align: center;
     margin-top: 20px;
@@ -18,16 +19,39 @@ body{
 }
 
 .logo{
-	max-width: 12%;
+	max-width: 8%;
 	height: auto;
-}
-
-.listeActions{
-    margin-top: -16px;
-    margin-bottom: 18px;
 }
 
 #dialogue{
     color: black;
     font-size: 1em;
+}
+.formBlock {
+    max-width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    padding: 10px;
+    z-index: 999;
+   height: 100%;
+    width: 100%;
+}
+
+ul{
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+input{
+    border-top: hidden;
+    border-bottom: hidden;
+    border-left: hidden;
+    border-right: hidden; 
+}
+
+h1{
+    font-size: 1.5em;
+    color: rgb(10, 41, 46);
+    text-decoration: underline;
 }
