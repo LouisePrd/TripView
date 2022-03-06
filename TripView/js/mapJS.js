@@ -14,8 +14,8 @@ $( function() {
 	// Parametre de la carte, centrée sur la france, on utilise MapQuest avec MQ
     let map = L.map('map', {
         layers: MQ.mapLayer(),
-        center: [48.76509, 1.98921],
-        zoom: 6
+        center: [48.8509, 2.4],
+        zoom: 11
 
         
     });
