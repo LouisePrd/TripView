@@ -14,90 +14,10 @@ $( function() {
 	// Parametre de la carte, centrée sur la france, on utilise MapQuest avec MQ
     let map = L.map('map', {
         layers: MQ.mapLayer(),
-        center: [48.8509, 2.4],
-        zoom: 11
-
-        
+        center: [48.76509, 1.98921],
+        zoom: 6
     });
 
-
-
-
-    
-    L.geoJson(balade, {  
-        style: function(feature) {
-            return {
-              "color": "red",
-              "weight": 7,
-              "opacity": 0.9     
-            }
-          },
-          // Put onEachFeature within the options object, not as 3rd argument.
-          onEachFeature: function(feature, layer) {
-            layer.bindPopup("TITRE DE LA BALADE : " + feature.properties.titre_balade + "." + "  " +feature.properties.texte_intro);   
-          }
-        }
-        
-       
-    ).addTo(map);
-
-    
-
-
-   var trav = L.geoJson(travaux, {
-    
-        style: function(feature) {
-            return {
-              "color": "yellow",
-              "weight": 7,
-              "opacity": 0.9
-              
-            }
-          },
-          // Put onEachFeature within the options object, not as 3rd argument.
-          onEachFeature: function(feature, layer) {
-            layer.bindPopup("détail de l'impact : " + feature.properties.impact_circulation_detail + " Date début :  " + feature.properties.date_debut+ " " + "Date fin : " +feature.properties.date_fin);
-            
-          }
-         
-        }
-       
-   ).addTo(map);
-        
- 
-
-        
-   var velo = L.geoJson(velib, {
-    
-
-
-      
-      style: function(feature) {
-          return {
-            "color": "blue",
-            "weight": 7,
-            "opacity": 0.9
-            
-          }
-        },
-        // Put onEachFeature within the options object, not as 3rd argument.
-        onEachFeature: function(feature, layer) {
-          layer.bindPopup(" Nom : " + feature.properties.name + " Code de la station :  " + feature.properties.stationcode);
-          
-        }
-      })
-      var overlayMaps = {
-        "Vélib disponible à paris ": velo,
-         
-       };
-      L.control.layers(null, overlayMaps, {
-        collapsed: false
-      }).addTo(map);
-
-
-
-
-  
     function runDirection(start, end) {
         
         // recrée la map par "défaut" après la suppression du chemin
@@ -105,27 +25,8 @@ $( function() {
             layers: MQ.mapLayer(),
             center: [48.76509, 1.98921],
             zoom: 6
-            
         });
-        L.geoJson(balade, {
-    
-            style: function(feature) {
-                return {
-                  "color": "red",
-                  "weight": 7,
-                  "opacity": 0.9
-                  
-                }
-              },
-              // Put onEachFeature within the options object, not as 3rd argument.
-              onEachFeature: function(feature, layer) {
-                layer.bindPopup("TITRE DE LA BALADE : " + feature.properties.titre_balade + "." + "  " +feature.properties.texte_intro);
-                
-              }
-            }
-            
-           
-        ).addTo(map);
+        
         var dir = MQ.routing.directions();
 
         dir.route({
@@ -171,10 +72,6 @@ $( function() {
             directions: dir,
             fitBounds: true
         })); 
-
-
-
-        
     }
 
 
@@ -202,37 +99,17 @@ $( function() {
     // appel de la fonction submitForm()  lors de la soumission du formulaire
     form.addEventListener('submit', submitForm);
 
-    
-    
-    var trainIcon = L.icon({
-      iconUrl: 'http://mollietaylor.com/skills/js/leaflet/train.png',
-      iconSize: [32, 37],
-      iconAnchor: [16, 37],
-      popupAnchor: [0, -37]
-    });
-    
+
     $( "#sortable" ).sortable({
-      revert: true
+        revert: true
+      });
+
+    $( "#draggable" ).draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
     });
 
-  $( "#draggable" ).draggable({
-      connectToSortable: "#sortable",
-      helper: "clone",
-      revert: "invalid"
-  });
+    $( "ul, li" ).disableSelection();
 
-  $( "ul, li" ).disableSelection();
-    
-
-
-
-  
-
-      
-  
- 
- 
-
- 
-   
 } );
