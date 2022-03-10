@@ -24,20 +24,17 @@ $( function() {
 
 
     
-    L.geoJson(balade, {
-    
+    L.geoJson(balade, {  
         style: function(feature) {
             return {
               "color": "red",
               "weight": 7,
-              "opacity": 0.9
-              
+              "opacity": 0.9     
             }
           },
           // Put onEachFeature within the options object, not as 3rd argument.
           onEachFeature: function(feature, layer) {
-            layer.bindPopup("TITRE DE LA BALADE : " + feature.properties.titre_balade + "." + "  " +feature.properties.texte_intro);
-            
+            layer.bindPopup("TITRE DE LA BALADE : " + feature.properties.titre_balade + "." + "  " +feature.properties.texte_intro);   
           }
         }
         
@@ -214,7 +211,17 @@ $( function() {
       popupAnchor: [0, -37]
     });
     
-    
+    $( "#sortable" ).sortable({
+      revert: true
+    });
+
+  $( "#draggable" ).draggable({
+      connectToSortable: "#sortable",
+      helper: "clone",
+      revert: "invalid"
+  });
+
+  $( "ul, li" ).disableSelection();
     
 
 
