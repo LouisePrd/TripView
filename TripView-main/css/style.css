@@ -47,7 +47,12 @@ input{
     border-top: hidden;
     border-bottom: hidden;
     border-left: hidden;
-    border-right: hidden; 
+    border-right: hidden;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+select{
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 h1{

@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+//approche agile
+//$.post/$.ajax
 	function verif_ident_bd($nom, $mdp, &$resultat=array()) {
 		require ('connect.php');
 		$sql="SELECT * FROM `user`  where nom=:nom and mdp=:mdp";
@@ -29,3 +30,4 @@ session_start();
 	}
 
 ?>
+

@@ -38,10 +38,17 @@
     Vous pouvez ajouter des points d'intéret, créer des chemins et ajouter des icones.<br>
     Commencez par ajouter votre chemin général !</p>
     <form id="form">
-      <input type="text" name="start" class="input" id="start" placeholder="point de départ" />
-      <input type="text" name="end" class="input" id="destination" placeholder="point d'arrivée" />
+      <input type="text" name="start" class="input" id="start" placeholder="Point de départ" />
+      <input type="text" name="end" class="input" id="destination" placeholder="Point d'arrivée" />
       <button style="display: none;" type="submit">Get Directions</button>
   </form>
+
+  <select class="listeActions" id="valeur" onchange="myfunction()">
+    <option value="activityIcon">Activités</option>
+    <option value="endIcon">Suppression</option>
+  </select>
+
+  <br><br>
 
     
     <div id="map"></div></center>

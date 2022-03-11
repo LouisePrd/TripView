@@ -15,31 +15,30 @@ $( function() {
     let map = L.map('map', {
         layers: MQ.mapLayer(),
         center: [48.8509, 2.4],
-        zoom: 11
+        zoom: 11        
+    });
 
-        
+
+    //chargement des icones
+    var activityIcon = L.icon({
+      iconUrl: './img/activité.png',
+      iconSize:     [30, 40], // size of the icon
+      iconAnchor:   [5, 45], // point of the icon which will correspond to marker's location
     });
 
     L.geoJson(balade, {
-    
         style: function(feature) {
             return {
               "color": "red",
               "weight": 7,
-              "opacity": 0.9
-              
+              "opacity": 0.9   
             }
           },
           onEachFeature: function(feature, layer) {
             layer.bindPopup("TITRE DE LA BALADE : " + feature.properties.titre_balade + "." + "  " +feature.properties.texte_intro);
-            
           }
-        }
-        
-       
+        }       
     ).addTo(map);
-
-    
 
 
    var trav = L.geoJson(travaux, {
@@ -54,7 +53,6 @@ $( function() {
             layer.bindPopup("détail de l'impact : " + feature.properties.impact_circulation_detail + " Date début :  " + feature.properties.date_debut+ " " + "Date fin : " +feature.properties.date_fin);
           }
         })
-
         var overlayMapsTrav = {
           "Problèmes de circulation ": trav,
          };
@@ -69,13 +67,11 @@ $( function() {
           return {
             "color": "blue",
             "weight": 7,
-            "opacity": 0.9
-            
+            "opacity": 0.9  
           }
         },
         onEachFeature: function(feature, layer) {
           layer.bindPopup(" Nom : " + feature.properties.name + " Code de la station :  " + feature.properties.stationcode);
-          
         }
       })
       var overlayMaps = {
@@ -84,9 +80,6 @@ $( function() {
       L.control.layers(null, overlayMaps, {
         collapsed: false
       }).addTo(map);
-
-
-
 
   
     function runDirection(start, end) {
@@ -98,8 +91,8 @@ $( function() {
             zoom: 6
             
         });
+
         L.geoJson(balade, {
-    
             style: function(feature) {
                 return {
                   "color": "red",
@@ -110,9 +103,7 @@ $( function() {
               onEachFeature: function(feature, layer) {
                 layer.bindPopup("TITRE DE LA BALADE : " + feature.properties.titre_balade + "." + "  " + feature.properties.texte_intro);
               }
-            }
-            
-           
+            }           
         ).addTo(map);
         var dir = MQ.routing.directions();
 
@@ -133,7 +124,7 @@ $( function() {
                     iconSize: [20, 29],
                     iconAnchor: [10, 29],
                     popupAnchor: [0, -29]
-                }); //on définiti l'icone
+                }); //on définit l'icone
 
                 marker = L.marker(location.latLng, {icon: varIcone}).addTo(map); //on ajoute l'icone de début
                 return marker;
@@ -158,11 +149,7 @@ $( function() {
         map.addLayer(new CustomRouteLayer({
             directions: dir,
             fitBounds: true
-        })); 
-
-
-
-        
+        }));        
     }
 
 
