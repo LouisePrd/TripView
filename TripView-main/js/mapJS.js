@@ -26,6 +26,23 @@ $( function() {
       iconAnchor:   [5, 45], // point of the icon which will correspond to marker's location
     });
 
+    map.on('click', onMapClick);
+    var popup = L.popup();
+  
+    function onMapClick(e) {
+      var nom = document.getElementById("valeur").value;
+        if (nom == 'activityIcon'){
+          var mp = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: activityIcon}).addTo(map);
+        }
+        else{
+          alert("You clicked the map at " + e.latlng);
+  
+        }
+    }
+  
+
+
+
     L.geoJson(balade, {
         style: function(feature) {
             return {
