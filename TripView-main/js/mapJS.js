@@ -26,22 +26,52 @@ $( function() {
       iconAnchor:   [5, 45], // point of the icon which will correspond to marker's location
     });
 
-    map.on('click', onMapClick);
+    
     var popup = L.popup();
   
-    function onMapClick(e) {
-      var nom = document.getElementById("valeur").value;
-        if (nom == 'activityIcon'){
-          var mp = new L.Marker([e.latlng.lat, e.latlng.lng], {icon: activityIcon}).addTo(map);
-        }
-        else{
-          alert("You clicked the map at " + e.latlng);
-  
-        }
-    }
+
   
 
+    // add marker on click
+map.on("click", addMarker);
 
+function addMarker(e) {
+  // Add marker to map at click location
+  const markerPlace = document.querySelector(".marker-position");
+  
+
+  const marker = new L.marker(e.latlng, {icon: activityIcon,
+    draggable: true
+  })
+    .addTo(map)
+    .bindPopup(buttonRemove);
+
+  // event remove marker
+  marker.on("popupopen", removeMarker);
+
+  // event draged marker
+  marker.on("dragend", dragedMaker);
+}
+
+const buttonRemove =
+  '<button type="button" class="remove">Supprimer le marker</button>';
+
+// remove marker
+function removeMarker() {
+  const marker = this;
+  const btn = document.querySelector(".remove");
+  btn.addEventListener("click", function () {
+    const markerPlace = document.querySelector(".marker-position");
+    
+    map.removeLayer(marker);
+  });
+}
+
+// draged
+function dragedMaker() {
+  const markerPlace = document.querySelector(".marker-position");
+  
+}
 
     L.geoJson(balade, {
         style: function(feature) {
@@ -101,6 +131,8 @@ $( function() {
   
     function runDirection(start, end) {
         
+
+      
         // recrée la map par "défaut" après la suppression du chemin
         map = L.map('map', {
             layers: MQ.mapLayer(),
@@ -108,7 +140,46 @@ $( function() {
             zoom: 6
             
         });
+ // add marker on click
+ map.on("click", addMarker);
 
+ function addMarker(e) {
+   // Add marker to map at click location
+   const markerPlace = document.querySelector(".marker-position");
+   
+ 
+   const marker = new L.marker(e.latlng, {icon: activityIcon,
+     draggable: true
+   })
+     .addTo(map)
+     .bindPopup(buttonRemove);
+ 
+   // event remove marker
+   marker.on("popupopen", removeMarker);
+ 
+   // event draged marker
+   marker.on("dragend", dragedMaker);
+ }
+ 
+ const buttonRemove =
+   '<button type="button" class="remove">Supprimer le marker</button>';
+ 
+ // remove marker
+ function removeMarker() {
+   const marker = this;
+   const btn = document.querySelector(".remove");
+   btn.addEventListener("click", function () {
+     const markerPlace = document.querySelector(".marker-position");
+     
+     map.removeLayer(marker);
+   });
+ }
+ 
+ // draged
+ function dragedMaker() {
+   const markerPlace = document.querySelector(".marker-position");
+   
+ }
         L.geoJson(balade, {
             style: function(feature) {
                 return {
@@ -208,4 +279,35 @@ $( function() {
   $( "ul, li" ).disableSelection();
  
    
+
+//geolocalisation
+
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://mapbox.com">Mapbox</a>',
+    maxZoom: 15,
+    id: 'superpikar.n28afi10',
+    accessToken: 'pk.eyJ1Ijoic3VwZXJwaWthciIsImEiOiI0MGE3NGQ2OWNkMzkyMzFlMzE4OWU5Yjk0ZmYzMGMwOCJ9.3bGFHjoSXB8yVA3KeQoOIw'
+}).addTo(map);
+
+$('#locate-position').on('click', function(){
+  map.locate({setView: true, maxZoom: 15});
+});
+
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(map)
+        .on('click', function(){
+          confirm("votre position" +" " + (e.latLng,e.latlng));
+        });
+        //.bindPopup("You are within " + radius + " meters from this point").openPopup();
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+
+function onLocationError(e) {
+    alert(e.message);
+}
+map.on('erreur de géolocalisation', onLocationError);
 } );
